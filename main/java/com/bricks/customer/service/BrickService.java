@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bricks.customer.bean.Customer;
+import com.bricks.customer.bean.CustomerOrderDetails;
 import com.bricks.customer.dao.BrickOrderDAO;
 
 
@@ -19,8 +19,8 @@ public class BrickService {
 	 * @param customer
 	 * @return
 	 */
-	public String addCustomer(Customer customer) throws Exception {
-		return brickOrderDAO.addCustomer(customer);
+	public String addCustomer(String numberBrick) throws Exception {
+		return brickOrderDAO.addCustomer(numberBrick);
 	}
 
 	/**
@@ -28,10 +28,12 @@ public class BrickService {
 	 * 
 	 * @return
 	 */
-	public List<Customer> getCustomerList() throws Exception{
-		return brickOrderDAO.getCustomerList();
+	public CustomerOrderDetails getCustomerList(String orderreferenceid) throws Exception{
+		return brickOrderDAO.getCustomerList(orderreferenceid);
 	}
 
-	
+	public  List<CustomerOrderDetails> getCustomerList() throws Exception{
+		return brickOrderDAO.getCustomerList();
+	}
 
 }

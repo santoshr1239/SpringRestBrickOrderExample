@@ -4,29 +4,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bricks.customer.bean.Customer;
+import com.bricks.customer.bean.CustomerOrderDetails;
 
 @Service("brickOrderUtility")
 public class BrickOrderUtility {
 
-	@Autowired
-	public static List<Customer> customerList = new ArrayList<Customer>();
+	public static List<CustomerOrderDetails> customerOrderList = new ArrayList<CustomerOrderDetails>();
 
-	/**
+     /**   
 	 * Return's customer list
 	 * 
 	 * @return
 	 */
-	public List<Customer> getCustomerList() throws Exception {
+	public CustomerOrderDetails getCustomerList(String orderreferenceid) throws Exception {
 		
-		Customer customerDummy = new Customer();
-		customerDummy.setCustomerName("Santhosh");
-		customerDummy.setOrderReferenceId(getReferenceId());
-		customerList.add(customerDummy);
-		return customerList;
+		for (int i = 0; i < customerOrderList.size(); i++) {
+			
+			CustomerOrderDetails customerOrderDetails = customerOrderList.get(i);
+			
+			if(customerOrderDetails.getOrderReferenceId().equals(orderreferenceid)){
+				return customerOrderDetails;
+			} 
+			
+		}
+		
+			return null;
 	}
 
 	/**
@@ -44,13 +48,20 @@ public class BrickOrderUtility {
 	 * adding dummy customer data
 	 */
 
-	public String addCustomer() throws Exception {
+	public String addCustomer(CustomerOrderDetails customerOrderDetails) throws Exception {
 		// TODO Auto-generated method stub
-		Customer customerDummy = new Customer();
-		customerDummy.setCustomerName("Santhosh");
-		customerDummy.setOrderReferenceId(getReferenceId());
-		customerList.add(customerDummy);
+		 customerOrderList.add(customerOrderDetails);
 		return "success";
+	}
+
+	public void setCustomerList(String numberBrick) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public List<CustomerOrderDetails> getCustomerList() {
+		// TODO Auto-generated method stub
+		return customerOrderList;
 	}
 
 }

@@ -6,14 +6,16 @@ package com.bricks.customer.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.bricks.customer.bean.Customer;
+import com.bricks.customer.Exception.CustomizedResponseEntityExceptionHandler;
+import com.bricks.customer.bean.CustomerOrderDetails;
 import com.bricks.customer.service.BrickService;
 
 /**
@@ -27,7 +29,7 @@ public class BricksCustomerController {
 
 	@Autowired
 	private BrickService brickService;
-	private ResponseEntity<List<Customer>> responseEntity;
+	private ResponseEntity<Object> responseEntity;
 	private ResponseEntity<String> responseEntityString;
 
 	/**
@@ -36,19 +38,46 @@ public class BricksCustomerController {
 	 * @return
 	 */
 
-	@RequestMapping(value = "/customer-orders", method = RequestMethod.GET, headers = "Accept=application/json")
-	public ResponseEntity<List<Customer>> getCustomers() {
+	@RequestMapping(value = "/customer-orders/{orderreferenceid}", method = RequestMethod.GET, headers = "Accept=application/json")
+	public ResponseEntity<Object> getCustomers(@PathVariable String orderreferenceid) {
 
 		/*
 		 * test list empty or nor and also status meassage, create
 		 * responseEntity object accordingly
 		 * 
 		 */
-		//ResponseEntity<List<Customer>> responseEntity = new ResponseEntity<List<Customer>>(HttpStatus.OK);
-		
+	    // orderreferenceid = "667004";
 		try {
-			List<Customer> customer = brickService.getCustomerList();
+			CustomerOrderDetails customer = brickService.getCustomerList(orderreferenceid);
+			
+			if(customer != null){
+				
 			return ResponseEntity.ok().body(customer);
+			} else {
+				return ResponseEntity.badRequest().body("no order details are returned");
+			}
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return responseEntity;
+	}
+	
+	@RequestMapping(value = "/customer-orders", method = RequestMethod.GET, headers = "Accept=application/json")
+	public ResponseEntity<Object> getCustomers() {
+
+		try {
+			 List<CustomerOrderDetails> customer = brickService.getCustomerList();
+			
+			if(customer != null){
+				
+			return ResponseEntity.ok().body(customer);
+			} else {
+				return ResponseEntity.badRequest().body("no order details are returned");
+			}
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -63,12 +92,11 @@ public class BricksCustomerController {
 	 * @param newCustomer
 	 * @return
 	 */
-	@RequestMapping(value = "/customersOrders", method = RequestMethod.POST, headers = "Accept=application/json")
-	public ResponseEntity<String> createCustomer(Customer customer)  {
+	@RequestMapping(value = "/customersOrders/{numberBrick}", method = RequestMethod.POST, headers = "Accept=application/json")
+	public ResponseEntity<String> createCustomer(@PathVariable String numberBrick)  {
 
-		//ResponseEntity<String> responseEntity = new ResponseEntity<>("ok", HttpStatus.CREATED);
 		try {
-			String orderRefenrenceId = brickService.addCustomer(customer);
+			String orderRefenrenceId = brickService.addCustomer(numberBrick);
 			// if success return http status code created and else write code
 			// accordingly
 
