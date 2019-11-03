@@ -1,5 +1,6 @@
 package com.bricks.customer.utility;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -10,10 +11,10 @@ import com.bricks.customer.bean.Customer;
 
 @Service("brickOrderUtility")
 public class BrickOrderUtility {
-	
+
 	@Autowired
-	public static List<Customer> customerList;
-	
+	public static List<Customer> customerList = new ArrayList<Customer>();
+
 	/**
 	 * Return's customer list
 	 * 
@@ -21,9 +22,13 @@ public class BrickOrderUtility {
 	 */
 	public List<Customer> getCustomerList() throws Exception {
 		
-			return customerList;
+		Customer customerDummy = new Customer();
+		customerDummy.setCustomerName("Santhosh");
+		customerDummy.setOrderReferenceId(getReferenceId());
+		customerList.add(customerDummy);
+		return customerList;
 	}
-	
+
 	/**
 	 * Generates unique reference id
 	 * 
@@ -34,7 +39,7 @@ public class BrickOrderUtility {
 		int numbers = 100000 + (int) (r.nextFloat() * 899900);
 		return String.valueOf(numbers);
 	}
-	
+
 	/*
 	 * adding dummy customer data
 	 */

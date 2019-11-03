@@ -27,25 +27,34 @@ public class BricksCustomerController {
 
 	@Autowired
 	private BrickService brickService;
+	private ResponseEntity<List<Customer>> responseEntity;
+	private ResponseEntity<String> responseEntityString;
 
 	/**
-	 * Get API that return all customers
+	 * Get API that return all customers orders
 	 * 
 	 * @return
 	 */
 
-	@RequestMapping(value = "/customersOrders/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
-	public  ResponseEntity<Customer> getCustomers(@PathVariable int id) throws Exception  {
-		
-		/*
-		 * test list empty or nor and also status meassage, create responseEntity object accordingly
-		 *  
-		 */
-		List<Customer> customer = brickService.getCustomerList();
+	@RequestMapping(value = "/customer-orders", method = RequestMethod.GET, headers = "Accept=application/json")
+	public ResponseEntity<List<Customer>> getCustomers() {
 
-		ResponseEntity<Customer> responseEntity = new ResponseEntity<Customer>(HttpStatus.OK);
+		/*
+		 * test list empty or nor and also status meassage, create
+		 * responseEntity object accordingly
+		 * 
+		 */
+		//ResponseEntity<List<Customer>> responseEntity = new ResponseEntity<List<Customer>>(HttpStatus.OK);
+		
+		try {
+			List<Customer> customer = brickService.getCustomerList();
+			return ResponseEntity.ok().body(customer);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
 		return responseEntity;
-			
 	}
 
 	/**
@@ -55,14 +64,19 @@ public class BricksCustomerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/customersOrders", method = RequestMethod.POST, headers = "Accept=application/json")
-	public  ResponseEntity<String> createCustomer(Customer customer) throws Exception  {
-		
-		
-		String orderRefenrenceId = brickService.addCustomer(customer);
-		// if success return http status code created and else write code accordingly
-		ResponseEntity<String> responseEntity = new ResponseEntity<>("customer",
-                 HttpStatus.CREATED);
-		return responseEntity;
-	}
+	public ResponseEntity<String> createCustomer(Customer customer)  {
 
+		//ResponseEntity<String> responseEntity = new ResponseEntity<>("ok", HttpStatus.CREATED);
+		try {
+			String orderRefenrenceId = brickService.addCustomer(customer);
+			// if success return http status code created and else write code
+			// accordingly
+
+			return ResponseEntity.ok().body(orderRefenrenceId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return responseEntityString;
+	}
+         
 }
