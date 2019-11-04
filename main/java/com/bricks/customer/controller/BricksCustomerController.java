@@ -42,7 +42,7 @@ public class BricksCustomerController {
 	public ResponseEntity<Object> getCustomers(@PathVariable String orderreferenceid) {
 
 		/*
-		 * test list empty or nor and also status meassage, create
+		 * test object empty or nor and also status meassage, create
 		 * responseEntity object accordingly
 		 * 
 		 */

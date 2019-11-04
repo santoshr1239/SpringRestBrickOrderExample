@@ -12,6 +12,8 @@ import com.bricks.customer.bean.CustomerOrderDetails;
 public class BrickOrderUtility {
 
 	public static List<CustomerOrderDetails> customerOrderList = new ArrayList<CustomerOrderDetails>();
+	
+	private static int idCounter = 100000;
 
      /**   
 	 * Return's customer list
@@ -39,9 +41,7 @@ public class BrickOrderUtility {
 	 * @return
 	 */
 	public String getReferenceId() throws Exception {
-		Random r = new Random();
-		int numbers = 100000 + (int) (r.nextFloat() * 899900);
-		return String.valueOf(numbers);
+		return String.valueOf(++idCounter);
 	}
 
 	/*
@@ -54,10 +54,6 @@ public class BrickOrderUtility {
 		return "success";
 	}
 
-	public void setCustomerList(String numberBrick) {
-		// TODO Auto-generated method stub
-
-	}
 
 	public List<CustomerOrderDetails> getCustomerList() {
 		// TODO Auto-generated method stub
