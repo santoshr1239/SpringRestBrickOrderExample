@@ -11,6 +11,23 @@ So I can start customers’ orders
     Then
         an Order reference is returned
 	And the Order reference is unique to the submission
+	
+  a)	Main files are :
+	1) BricksCustomerController
+	2) BrickService
+	3) BrickOrderDAO
+	4) BrickOrderUtility(used for creation of dummy data)
+	5) pom.xml
+	6) BrickOrderJunit
+
+   b)  Code and Rest url for creation of order is in BricksCustomerController
+
+	   @RequestMapping(value = "/customer-orders", method = RequestMethod.GET, headers = "Accept=application/json")
+		public ResponseEntity<Object> getCustomers() 
+     
+   c)  BricksCustomerController call to the service is
+            List<CustomerOrderDetails> customer = brickService.getCustomerList();
+................................................................................................................................	
 
 As a Rest Client
 I want to retrieve orders
@@ -33,7 +50,30 @@ So I can display simple customers’ orders
     Given
         Many customer have submitted orders for bricks
     When 
+    
+    
         A Get Orders request is submitted
     Then
         all the orders details are returned
 	and the order details contains the Order reference and the number of bricks ordered
+	
+	
+     a))   Main files are :
+		1) BricksCustomerController
+		2) BrickService
+		3) BrickOrderDAO
+		4) BrickOrderUtility(used for creation of dummy data)
+		5) pom.xml
+		6) BrickOrderJunit	
+     b)  Get API code snippet is to return all customers orders in BricksCustomerController class
+          
+	  @RequestMapping(value = "/customer-orders/{orderreferenceid}", method = RequestMethod.GET, headers =                        				"Accept=application/json")
+	  public ResponseEntity<Object> getCustomers(@PathVariable String orderreferenceid) {
+
+     c)  service call is
+        
+	 CustomerOrderDetails customer = brickService.getCustomerList(orderreferenceid);
+	 
+     	 
+	 
+		
