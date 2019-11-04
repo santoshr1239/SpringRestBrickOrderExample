@@ -79,5 +79,9 @@ So I can display simple customers’ orders
 	 CustomerOrderDetails customer = brickService.getCustomerList(orderreferenceid);
 	 
      	 
-	 
+    d) Code to retrieve all orders is BricksCustomerController
+       
+       @RequestMapping(value = "/customer-orders", method = RequestMethod.GET, headers = "Accept=application/json")
+	public ResponseEntity<Object> getCustomers() {
+
 		
