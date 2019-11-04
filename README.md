@@ -58,21 +58,7 @@ So I can display simple customers’ orders
 	and the order details contains the Order reference and the number of bricks ordered
 	
 	
-     a))   Main files are :
-		1) BricksCustomerController
-		2) BrickService
-		3) BrickOrderDAO
-		4) BrickOrderUtility(used for creation of dummy data)
-		5) pom.xml
-		6) BrickOrderJunit	
-     b)  Get API code snippet is to return all customers orders in BricksCustomerController class
-          
-	  @RequestMapping(value = "/customer-orders/{orderreferenceid}", method = RequestMethod.GET, headers =                        				"Accept=application/json")
-	  public ResponseEntity<Object> getCustomers(@PathVariable String orderreferenceid) {
-
-     c)  service call is
-        
-	 CustomerOrderDetails customer = brickService.getCustomerList(orderreferenceid);
+   
 	 
      	 
 	 
