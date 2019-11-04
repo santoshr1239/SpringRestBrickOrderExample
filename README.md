@@ -59,6 +59,24 @@ So I can display simple customers’ orders
 	
 	
    
+   
+   
+   
+     a))   Main files are :
+		1) BricksCustomerController
+		2) BrickService
+		3) BrickOrderDAO
+		4) BrickOrderUtility(used for creation of dummy data)
+		5) pom.xml
+		6) BrickOrderJunit	
+     b)  Get API code snippet is to return customers orders when they serach with valid refrence or invalid reference is in BricksCustomerController class
+          
+	  @RequestMapping(value = "/customer-orders/{orderreferenceid}", method = RequestMethod.GET, headers =                        				"Accept=application/json")
+	  public ResponseEntity<Object> getCustomers(@PathVariable String orderreferenceid) {
+
+     c)  service call is
+        
+	 CustomerOrderDetails customer = brickService.getCustomerList(orderreferenceid);
 	 
      	 
 	 
